@@ -18,3 +18,8 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+li {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
