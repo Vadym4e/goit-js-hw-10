@@ -15,6 +15,8 @@ const inputCountrieName = input.addEventListener(
     let name = input.value;
 
     if (input.value === '') {
+      countryList.innerHTML = '';
+      countryInfo.innerHTML = '';
       return;
     }
 
