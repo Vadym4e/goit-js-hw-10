@@ -18,26 +18,31 @@ const inputCountrieName = input.addEventListener(
       return;
     }
 
-    fetchCountries(name).then(data => {
-      countryList.innerHTML = '';
-      countryInfo.innerHTML = '';
-      if (data.length === 1) {
-        countryList.insertAdjacentHTML(
-          'beforeend',
-          renderListOfCountries(data)
-        );
-        countryInfo.insertAdjacentHTML('beforeend', renderInfoOfCountrie(data));
-      } else if (data.length >= 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      } else {
-        countryList.insertAdjacentHTML(
-          'beforeend',
-          renderListOfCountries(data)
-        );
-      }
-    });
+    fetchCountries(name)
+      .then(data => {
+        countryList.innerHTML = '';
+        countryInfo.innerHTML = '';
+        if (data.length === 1) {
+          countryList.insertAdjacentHTML(
+            'beforeend',
+            renderListOfCountries(data)
+          );
+          countryInfo.insertAdjacentHTML(
+            'beforeend',
+            renderInfoOfCountrie(data)
+          );
+        } else if (data.length >= 10) {
+          Notiflix.Notify.info(
+            'Too many matches found. Please enter a more specific name.'
+          );
+        } else {
+          countryList.insertAdjacentHTML(
+            'beforeend',
+            renderListOfCountries(data)
+          );
+        }
+      })
+      .catch(alertWrongName);
   }, DEBOUNCE_DELAY)
 );
 
@@ -63,3 +68,7 @@ const renderInfoOfCountrie = data => {
     .join('');
   return resoult;
 };
+
+function alertWrongName() {
+  Notiflix.Notify.failure('Oops, there is no country with that name');
+}
